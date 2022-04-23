@@ -73,7 +73,17 @@ def eval_all(expressions, env):
     2
     """
     # BEGIN PROBLEM 7
-    return scheme_eval(expressions.first, env) # change this line
+    if expressions == nil:
+        return
+    if expressions.rest != nil:
+        if isinstance(expressions.first, Pair):
+            scheme_eval(expressions.first, env)
+        return eval_all(expressions.rest, env)
+    if isinstance(expressions.first, Pair):
+        return scheme_eval(expressions.first, env)
+    if scheme_symbolp(expressions.first):
+        return env.lookup(expressions.first)
+    return expressions.first
     # END PROBLEM 7
 
 ################
